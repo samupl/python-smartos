@@ -12,7 +12,7 @@ class VMSpec(object):
 
     def __init__(self):
         self.spec = {
-            'brand': None,
+            'brand': VMSpecString(value='', can_update=False, choices=['kvm', 'joyent']),
 
             'disks': [
                 {
@@ -36,6 +36,7 @@ class VMTemplate(object):
 
 class KVMTemplate(VMTemplate):
     def __init__(self):
+        self.spec.spec['brand'] = VMSpecString(value='kvm', can_update=False)
         self.spec.spec['disks'][0]['boot'] = VMSpecBool(value=False)
         self.spec.spec['disks'][0]['block_size'] = VMSpecInt(value=8192, can_update=False)
         self.spec.spec['disks'][0]['nocreate'] = VMSpecBool(value=False, can_update=False)
